@@ -72,11 +72,16 @@ func main() {
 		sinkConf := sinkConfigs[i]
 
 		go func(data chan string, control chan int, wg *sync.WaitGroup) {
+
+			rdb := redis.NewClient(&redis.Options{
+				Addr:     sinkConf.Addr,
+				Password: sinkConf.Password,
+			})
+
 			for {
 				select {
 				case item := <-data:
-					fmt.Println(sinkConf)
-					fmt.Println(item)
+					rdb.LPush(context.TODO(), sinkConf.Key, item)
 				case <-control:
 					wg.Done()
 					return
