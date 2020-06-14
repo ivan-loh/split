@@ -1,0 +1,11 @@
+{
+    "source": {
+        "addr": "localhost:6379",
+        "password": "",
+        "key": "SourceA"
+    },
+    "sinks": [
+        {"addr": "localhost:6379", "password": "", "key": "SinkA"},
+        {"addr": "localhost:6379", "password": "", "key": "SinkB"}
+    ]
+}
